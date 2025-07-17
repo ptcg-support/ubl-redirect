@@ -33,7 +33,7 @@
 </head>
 <body>
   <script>
-    const validTokens = ['temptest9527'];
+    const validTokens = ['ubltesting'];
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
@@ -56,7 +56,7 @@
       document.body.innerHTML = `
         <div class="denied">
           <h1>🚫 存取已被拒絕</h1>
-          <h3>此表單只能於現場掃描二維碼存取</h3>
+          <h3>此表單只能於現場存取並填寫</h3>
         </div>
       `;
     }
