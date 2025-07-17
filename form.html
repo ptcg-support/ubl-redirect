@@ -22,41 +22,36 @@
     }
     .denied {
       text-align: center;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
   <script>
-    // Define valid tokens (can be more than one)
     const validTokens = ['temptest9527'];
-
-    // Get token from URL
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
-    // If token is valid
+    // Clear the body before inserting any content
+    document.body.innerHTML = "";
+
     if (validTokens.includes(token)) {
-      // Remove token from URL (but keep it in memory)
+      // Hide token from URL
       if (window.history.replaceState) {
         const cleanURL = window.location.origin + window.location.pathname;
         window.history.replaceState({}, document.title, cleanURL);
       }
 
-    // Prefilled Google Form URL (with token value in form field)
-    const formURL = `https://forms.gle/P2FR59aiLJANd84EA`;
-
-    // Check if token is valid
-    if (validTokens.includes(token)) {
-      // Inject iframe into body
+      // Inject the iframe with your actual form link
       const iframe = document.createElement('iframe');
-      iframe.src = formURL;
+      iframe.src = "https://forms.gle/P2FR59aiLJANd84EA";
       document.body.appendChild(iframe);
     } else {
       // Show access denied message
       document.body.innerHTML = `
         <div class="denied">
           <h1>🚫 Access Denied</h1>
-          <p>This form can only be accessed by scanning the official QR code.</p>
+          <p>This form can only be accessed via the official QR code.</p>
         </div>
       `;
     }
