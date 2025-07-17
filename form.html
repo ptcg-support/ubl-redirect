@@ -2,27 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Secure Access Form</title>
+  <title>Secure Form Access</title>
   <style>
-     html, body {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     iframe {
       border: none;
       width: 100vw;
       height: 100vh;
     }
+    .denied {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <iframe
-      src="https://docs.google.com/forms/d/e/1FAIpQLSeV8elecvQSEkP5C9pc4Efk9L5aht1LE_5_z98EHj2trZafMg/viewform?usp=pp_url&entry.1565847947=askjhdbkjasbdkj"
-      allowfullscreen
-    >Loading…</iframe>
-  </div>
+  <script>
+    // Define valid tokens (can be more than one)
+    const validTokens = ['temptest9527'];
+
+    // Get token from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Prefilled Google Form URL (with token value in form field)
+    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSeV8elecvQSEkP5C9pc4Efk9L5aht1LE_5_z98EHj2trZafMg/viewform?usp=pp_url&entry.1565847947=${token}`;
+
+    // Check if token is valid
+    if (validTokens.includes(token)) {
+      // Inject iframe into body
+      const iframe = document.createElement('iframe');
+      iframe.src = formURL;
+      document.body.appendChild(iframe);
+    } else {
+      // Show access denied message
+      document.body.innerHTML = `
+        <div class="denied">
+          <h1>🚫 Access Denied</h1>
+          <p>This form can only be accessed by scanning the official QR code.</p>
+        </div>
+      `;
+    }
+  </script>
 </body>
 </html>
