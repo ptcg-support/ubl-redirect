@@ -34,6 +34,14 @@
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
+    // If token is valid
+    if (validTokens.includes(token)) {
+      // Remove token from URL (but keep it in memory)
+      if (window.history.replaceState) {
+        const cleanURL = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanURL);
+      }
+
     // Prefilled Google Form URL (with token value in form field)
     const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSeV8elecvQSEkP5C9pc4Efk9L5aht1LE_5_z98EHj2trZafMg/viewform?usp=pp_url&entry.1565847947=${token}`;
 
