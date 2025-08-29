@@ -41,6 +41,9 @@
     // Clear the body before inserting any content
     document.body.innerHTML = "";
 
+    // Simple device detection
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
     if (validTokens.includes(token)) {
       // Hide token from URL
       if (window.history.replaceState) {
@@ -48,9 +51,13 @@
         window.history.replaceState({}, document.title, cleanURL);
       }
 
-      // Inject the iframe with your actual form link
+      // Choose iframe source based on device
+      const iframeSrc = isMobile
+        ? "https://forms.gle/ZP98MMqo59gtpxgZ6?mobile=true"
+        : "https://forms.gle/ZP98MMqo59gtpxgZ6?desktop=true";
+
       const iframe = document.createElement('iframe');
-      iframe.src = "https://forms.gle/ZP98MMqo59gtpxgZ6";
+      iframe.src = iframeSrc;
       document.body.appendChild(iframe);
     } else {
       // Show access denied message
