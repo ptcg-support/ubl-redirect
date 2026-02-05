@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2026-02-08 UBL 高級球聯盟賽 現場候補登記</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+    }
+    .iframe-container {
+      width: 100vw;
+      height: calc(100vh - 500px); /* fill remaining space */
+    }
+    iframe {
+      position: absolute; 
+      top: 0; 
+      left: 0;
+      border: none;
+      width: 100vw;
+      height: 100vh;
+      margin-top: 0px;
+    }
+    .denied {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const validTokens = ['aB9X2nT4qM7pR8l'];
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Clear the body before inserting any content
+    document.body.innerHTML = "";
+
+    // Simple device detection
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+    if (validTokens.includes(token)) {
+      // Hide token from URL
+      if (window.history.replaceState) {
+        const cleanURL = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanURL);
+      }
+
+      // Choose iframe source based on device
+      const iframeSrc = isMobile
+        ? "https://forms.gle/ZQePujypyTHjcDB37?mobile=true"
+        : "https://forms.gle/ZQePujypyTHjcDB37?desktop=true";
+
+      const iframe = document.createElement('iframe');
+      iframe.src = "https://forms.gle/ZQePujypyTHjcDB37?mobile=true";
+      document.body.appendChild(iframe);
+    } else {
+      // Show access denied message
+      document.body.innerHTML = `
+        <div class="denied">
+          <h1>🚫 存取已被拒絕</h1>
+          <h3>此表單只能於現場存取並填寫</h3>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
